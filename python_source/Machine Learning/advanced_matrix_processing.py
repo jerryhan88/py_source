@@ -1,6 +1,7 @@
 from __future__ import division
 import numpy
 print '----------------------------------'
+print 'what is diff'
 A = numpy.array([[1, 2, 3], [4, 5, 6]])
 print(A.transpose())
 print '----------------------------------'
