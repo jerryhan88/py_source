@@ -1,6 +1,17 @@
 import re
 import math
 
+'''
+---------------------------input
+John likes to watch movies. Mary likes movies too.
+John also likes to watch football games.
+0.1
+
+---------------------------input
+-21.78476859340514
+'''
+
+
 def main():
     # 1
     training_sentence = input()
@@ -17,6 +28,20 @@ def main():
 
 def calculate_doc_prob(training_model, testing_model, alpha):
     # Implement likelihood function here...
+    laplace_smoothing = {}
+    bow_dict_training, bow_training = training_model
+    bow_dict_testing, bow_testing = testing_model
+    for k, v in bow_dict_training.items():
+        laplace_smoothing[k] = (bow_training[v] + alpha)/ (sum(bow_training) + len(bow_dict_training) * alpha)
+    prob = 1
+    for k, v in bow_dict_testing.items():
+        if k in laplace_smoothing:
+            prob *= laplace_smoothing[k] ** bow_testing[v]
+        else:
+            prob *= alpha/ (sum(bow_training) + len(bow_dict_training) * alpha)
+    
+    logprob = math.log(prob)
+    
 
     return logprob
 
